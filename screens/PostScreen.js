@@ -11,6 +11,7 @@ require('firebase/firestore');
 
 export default class PostScreen extends React.Component {
     state = {
+        title: '',
         text: '',
         image: null,
 
@@ -37,12 +38,13 @@ export default class PostScreen extends React.Component {
 
     handlePost = () => {
         Fire.shared.addPost({
+            title: this.state.title.trim(),
             text: this.state.text.trim(),
             localUri: this.state.image
 
         })
             .then(ref => {
-                this.setState({ text: '', image: null })
+                this.setState({ title: '', text: '', image: null })
                 this.props.navigation.navigate('Home')
             })
             .catch(error => {
@@ -69,7 +71,7 @@ export default class PostScreen extends React.Component {
         return (
             <SafeAreaView style={styles.container}>
                 <View style={styles.header}>
-                    <TouchableOpacity onPress={() => {this.props.navigation.navigate('Home')}}>
+                    <TouchableOpacity onPress={() => { this.props.navigation.navigate('Home') }}>
                         <Icon name='arrow-back-outline' size={24} color='#D8D9DB' ></Icon>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={this.handlePost}>
@@ -79,17 +81,26 @@ export default class PostScreen extends React.Component {
                 </View>
 
                 <View style={styles.inputContainer}>
-                    <Image source={require('../assets/tempAvatar.png')} style={styles.avatar}></Image>
+                    {/* <Image source={require('../assets/tempAvatar.png')} style={styles.avatar}></Image> */}
+                    
+                    <TextInput
+                        placeholder='Título da receita'
+                        onChangeText={title => this.setState({ title })}                       
+                        style={ {fontSize: 24} }
+                        value={this.state.title}
+                    >
+                    </TextInput>
+
                     <TextInput
                         autoFocus={true}
                         multiline={true}
-                        numberOfLines={4}
-                        style={{ flex: 1 }}
-                        placeholder='Quer compartilhar algo?'
-                        onChangeText={text => this.setState({text})}
+                        numberOfLines={20}
+                        placeholder='Digite aqui sua receita'
+                        onChangeText={text => this.setState({ text })}
                         value={this.state.text}
                     >
                     </TextInput>
+
                 </View>
 
                 <TouchableOpacity style={styles.photo} onPress={this.pickImage}>
@@ -122,7 +133,7 @@ const styles = StyleSheet.create({
 
     inputContainer: {
         margin: 32,
-        flexDirection: 'row',
+        flexDirection: 'column',
 
     },
 
@@ -134,8 +145,9 @@ const styles = StyleSheet.create({
     },
 
     photo: {
-        alignItems: 'flex-end',
+        alignItems: 'center',
         marginHorizontal: 32,
+        backgroundColor: "#175d03"
 
     }
 

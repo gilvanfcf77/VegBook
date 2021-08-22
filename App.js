@@ -33,7 +33,7 @@ const AppContainer = createStackNavigator(
         Home: {
           screen: HomeScreen,
           navigationOptions: {
-            tabBarIcon: ({ tintColor }) => <Icon name='home-outline' color={tintColor} size={24} />
+            tabBarIcon: ({ tintColor }) => <Icon name='home' color={tintColor} size={24} />
 
           }
         },
@@ -44,9 +44,9 @@ const AppContainer = createStackNavigator(
         //   }
         // },
         Post: {
-          screen: HomeScreen,
+          screen: PostScreen,
           navigationOptions: {
-            tabBarIcon: ({ tintColor }) => <Icon name='add-circle-outline'
+            tabBarIcon: ({ tintColor }) => <Icon name='add-circle'
               // color={'#329e19'}
               color={tintColor}
               size={24}
@@ -65,16 +65,16 @@ const AppContainer = createStackNavigator(
         },
 
         Notification: {
-          screen: HomeScreen,
+          screen: NotificationScreen,
           navigationOptions: {
-            tabBarIcon: ({ tintColor }) => <Icon name='notifications-outline' color={tintColor} size={24} />
+            tabBarIcon: ({ tintColor }) => <Icon name='notifications' color={tintColor} size={24} />
           }
         },
 
         Profile: {
-          screen: HomeScreen,
+          screen: ProfileScreen,
           navigationOptions: {
-            tabBarIcon: ({ tintColor }) => <Icon name='person-outline' color={tintColor} size={24} />
+            tabBarIcon: ({ tintColor }) => <Icon name='person' color={tintColor} size={24} />
           }
         }
       },

@@ -1,13 +1,24 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import firebase from 'firebase'
 
 export default class ProfileScreen extends React.Component {
+
+    signOutUser = () => {
+        firebase.auth().signOut();
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <Text>
                     Profile Screen
                 </Text>
+                <TouchableOpacity style={{ marginTop: 32 }} onPress={this.signOutUser}>
+                    <Text>
+                        Logout
+                    </Text>
+                </TouchableOpacity>
             </View>
         )
     }

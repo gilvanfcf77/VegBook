@@ -5,7 +5,7 @@ import firebase from 'firebase'
 
 export default class RegisterScreen extends React.Component {
 
-    static navigationOptions={
+    static navigationOptions = {
         headerShown: false
     }
 
@@ -16,17 +16,34 @@ export default class RegisterScreen extends React.Component {
         errorMessage: null
     }
 
+    get firestore() {
+        return firebase.firestore()
+    }
+
+    get uid() {
+        return (firebase.auth().currentUser || {}).uid
+    }
+
     handleSignUp = () => {
         firebase
             .auth()
             .createUserWithEmailAndPassword(this.state.email, this.state.password)
             .then(userCredentials => {
+                this.firestore.collection('users')
+                    .add({
+                        uid: userCredentials.user.uid,
+                        name: this.state.name,                        
+                        email: userCredentials.user.email
+                    })
                 return userCredentials.user.updateProfile({
                     displayName: this.state.name
 
                 });
+
+
             })
-            .catch(error => this.setState({errorMessage: error.message}))
+            .catch(error => this.setState({ errorMessage: error.message }))
+
     }
 
     render() {
@@ -171,7 +188,7 @@ const styles = StyleSheet.create({
 
     },
 
-    
+
     image: {
 
         alignSelf: 'center',
