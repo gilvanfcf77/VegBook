@@ -12,7 +12,8 @@ require('firebase/firestore');
 export default class PostScreen extends React.Component {
     state = {
         title: '',
-        text: '',
+        ingredients: '',
+        preparation: '',
         image: null,
 
     }
@@ -39,12 +40,13 @@ export default class PostScreen extends React.Component {
     handlePost = () => {
         Fire.shared.addPost({
             title: this.state.title.trim(),
-            text: this.state.text.trim(),
+            ingredients: this.state.ingredients.trim(),
+            preparation: this.state.preparation.trim(),
             localUri: this.state.image
 
         })
             .then(ref => {
-                this.setState({ title: '', text: '', image: null })
+                this.setState({ title: '', ingredients: '', preparation: '', image: null })
                 this.props.navigation.navigate('Home')
             })
             .catch(error => {
@@ -82,22 +84,33 @@ export default class PostScreen extends React.Component {
 
                 <View style={styles.inputContainer}>
                     {/* <Image source={require('../assets/tempAvatar.png')} style={styles.avatar}></Image> */}
-                    
+
                     <TextInput
+                        autoFocus={true}
                         placeholder='Título da receita'
-                        onChangeText={title => this.setState({ title })}                       
-                        style={ {fontSize: 24} }
+                        onChangeText={title => this.setState({ title })}
+                        style={{ fontSize: 24 }}
                         value={this.state.title}
                     >
                     </TextInput>
 
+                    
+
                     <TextInput
-                        autoFocus={true}
                         multiline={true}
-                        numberOfLines={20}
-                        placeholder='Digite aqui sua receita'
-                        onChangeText={text => this.setState({ text })}
-                        value={this.state.text}
+                        numberOfLines={10}
+                        placeholder='Lista de ingredientes'
+                        onChangeText={ingredients => this.setState({ ingredients })}
+                        value={this.state.ingredients}
+                    >
+                    </TextInput>
+
+                    <TextInput
+                        multiline={true}
+                        numberOfLines={10}
+                        placeholder='Descreva o modo de preparo'
+                        onChangeText={preparation => this.setState({ preparation })}
+                        value={this.state.preparation}
                     >
                     </TextInput>
 
@@ -107,8 +120,8 @@ export default class PostScreen extends React.Component {
                     <Icon name='camera-outline' size={32} color='#D8D9DB'></Icon>
                 </TouchableOpacity>
 
-                <View styles={{ marginHorizontal: 32, marginTop: 32, height: 150, }}>
-                    <Image source={{ uri: this.state.image }} style={{ width: '100%', height: '100%' }}></Image>
+                <View styles={{ marginHorizontal: 32, marginTop: 32, height: 150, alignItems: 'center', justifyContent: 'center' }}>
+                    <Image source={{ uri: this.state.image }} style={{ width: '50%', height: '50%'}}></Image>
                 </View>
             </SafeAreaView>
         )
@@ -125,7 +138,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingHorizontal: 32,
-        paddingVertical: 12,
+        paddingVertical: 32,
         borderBottomWidth: 1,
         borderBottomColor: '#D8D9DB'
 
@@ -147,7 +160,8 @@ const styles = StyleSheet.create({
     photo: {
         alignItems: 'center',
         marginHorizontal: 32,
-        backgroundColor: "#175d03"
+        backgroundColor: "#175d03",
+        borderRadius: 3
 
     }
 

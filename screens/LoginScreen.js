@@ -33,7 +33,7 @@ export default class LoginScreen extends React.Component {
             <View style={styles.container}>
                 <StatusBar barStyle={'light-content'}></StatusBar>
 
-                <Image source={require('../assets/authHeader.png')} style={{ marginTop: -500 }}></Image>
+                {/* <Image source={require('../assets/authHeader.png')} style={{ marginTop: -500 }}></Image> */}
 
                 <Image source={require('../assets/loginLogo.png')} style={styles.image}></Image>
 

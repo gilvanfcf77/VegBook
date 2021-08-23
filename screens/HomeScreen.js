@@ -5,68 +5,41 @@ import moment from 'moment';
 import firebase from 'firebase'
 
 
-let posts = [
-    {
-        id: '1',
-        name: 'Joe McKay',
-        text: 'Loren Ipsun',
-        timestamp: new Date("2021-08-17T03:24:00"),
-        avatar: require('../assets/tempAvatar.png'),
-        image: require('../assets/receita1.jpeg')
-    },
-    {
-        id: '2',
-        name: 'Mary McKay',
-        text: 'Loren Ipsun',
-        timestamp: new Date("2020-12-17T03:24:00"),
-        avatar: require('../assets/tempAvatar.png'),
-        image: require('../assets/receita2.jpg')
-    },
-    {
-        id: '3',
-        name: 'Arthur McKay',
-        text: 'Loren Ipsun',
-        timestamp: new Date("2021-08-21T03:24:00"),
-        avatar: require('../assets/tempAvatar.png'),
-        image: require('../assets/receita3.jpg')
-    }
-]
-
 export default class HomeScreen extends React.Component {
 
     state = {
-        email: '',
-        displayName: '',
         posts: null,
-
     }
+
+    
 
     getUserName = (userId) => {
-        firebase.firestore()
-            .collection('users')
+        const names = ['Albert', 'Kayle', 'Jordan', 'Michael', 'Diana']
+        // firebase.firestore()
+        //     .collection('users')
 
-            .get()
+        //     .get()
 
-            .then(snapshot => {
+        //     .then(snapshot => {
 
-                snapshot.forEach(doc => {
+        //         snapshot.forEach(doc => {
 
-                    let data = doc.data()
+        //             let data = doc.data()
 
-                    if (data.uid === userId) {
-                        return data.name
-                    }
-                })
-            })
-            .catch(error => console.log(error))
+        //             if (data.uid === userId) {
+        //                 return data.name
+        //             }
+        //         })
+        //     })
+        //     .catch(error => console.log(error))
+
+        var randomName = names[Math.floor(Math.random()*names.length)];
+
+        return randomName
 
     }
 
-    componentDidMount() {
-        const { email, displayName } = firebase.auth().currentUser
-
-        this.setState({ email, displayName })
-
+    setPosts = () => {
         firebase.firestore()
             .collection('posts')
             .orderBy("timestamp", "desc")
@@ -75,11 +48,16 @@ export default class HomeScreen extends React.Component {
                 const posts = []
                 snapshot.forEach(doc => {
                     let data = doc.data()
+                    data['name'] = this.getUserName()
                     posts.push(data)
                 })
                 this.setState({ posts: posts })
             })
             .catch(error => console.log(error))
+    }
+
+    componentDidMount(){
+        this.setPosts()
     }
 
     renderPost = post => {
@@ -98,11 +76,17 @@ export default class HomeScreen extends React.Component {
                         </TouchableOpacity>
                     </View>
 
-                    <Text style={styles.post}>
-                        {post.text}
+                    {/* <Text style={styles.post}>
+                        {post.ingredients}
                     </Text>
 
-                    <Image source={{ uri: post.image }} style={styles.postImage} resizeMode='cover'></Image>
+                    <Text style={styles.post}>
+                        {post.preparation}
+                    </Text> */}
+
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('PostDetails', { post: post })}>
+                        <Image source={{ uri: post.image }} style={styles.postImage} resizeMode='cover'></Image>
+                    </TouchableOpacity>
 
                     <View style={{ flexDirection: 'row' }}>
                         <TouchableOpacity>

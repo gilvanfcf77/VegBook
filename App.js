@@ -13,6 +13,7 @@ import HomeScreen from "./screens/HomeScreen";
 import MessageScreen from './screens/MessageScreen';
 import NotificationScreen from './screens/NotificationScreen';
 import PostScreen from './screens/PostScreen';
+import PostDetailsScreen from './screens/PostDetailsScreen';
 import ProfileScreen from './screens/ProfileScreen';
 
 import firebase from 'firebase'
@@ -81,8 +82,8 @@ const AppContainer = createStackNavigator(
 
       {
         defaultNavigationOptions: {
-          tabBarOnPress: ({ navigation, defaultHandler}) => {
-            if(navigation.state.key === 'Post'){
+          tabBarOnPress: ({ navigation, defaultHandler }) => {
+            if (navigation.state.key === 'Post') {
               navigation.navigate('postModal')
             } else {
               defaultHandler()
@@ -101,7 +102,6 @@ const AppContainer = createStackNavigator(
 
     postModal: {
       screen: PostScreen
-
     }
 
   },
@@ -117,7 +117,6 @@ const AppContainer = createStackNavigator(
 const AuthStack = createStackNavigator({
   Login: LoginScreen,
   Register: RegisterScreen
-
 })
 
 export default createAppContainer(
@@ -126,7 +125,8 @@ export default createAppContainer(
 
       Loading: LoadingScreen,
       App: AppContainer,
-      Auth: AuthStack
+      Auth: AuthStack,
+      PostDetails: PostDetailsScreen
 
     },
     {
