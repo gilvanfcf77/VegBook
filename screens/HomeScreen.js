@@ -9,39 +9,26 @@ export default class HomeScreen extends React.Component {
 
     state = {
         posts: null,
-        name: ''
+        usersNames: null,
     }
 
+    setUsers = async () => {
 
-
-    getUserName = (userId) => {
-        const names = ['Albert', 'Kayle', 'Jordan', 'Michael', 'Diana']
-        // firebase.firestore()
-        //     .collection('users')
-
-        //     .get()
-
-        //     .then(snapshot => {
-
-        //         snapshot.forEach(doc => {
-
-        //             let data = doc.data()
-
-        //             if (data.uid === userId) {
-        //                 console.log(data.name);
-        //                 this.setState({ name: data.name })
-        //             }
-        //         })
-        //     })
-        //     .catch(error => console.log(error))
-
-        var randomName = names[Math.floor(Math.random() * names.length)];
-
-        return randomName
-
+        await firebase.firestore()
+            .collection('users')
+            .get()
+            .then(querySnapshot => {
+                const names = []
+                querySnapshot.forEach(documentSnapshot => {
+                    let data = documentSnapshot.data()
+                    names.push(data)
+                })
+                this.setState({ usersNames: names })
+            })
+            .catch(error => console.log(error))
     }
 
-    setPosts = () => {
+    setPosts = async () => {
         firebase.firestore()
             .collection('posts')
             .orderBy("timestamp", "desc")
@@ -49,9 +36,15 @@ export default class HomeScreen extends React.Component {
             .then(snapshot => {
                 const posts = []
                 snapshot.forEach(doc => {
+
                     let data = doc.data()
-                    this.getUserName(doc.uid);
-                    data['name'] = this.getUserName();
+                    let allUsers = this.state.usersNames;
+                    for (var i = 0; i < Object.keys(allUsers).length; i++) {
+                        //
+                        if (allUsers[i].uid === data.uid) {
+                            data['name'] = allUsers[i].name;
+                        }
+                    }
                     posts.push(data)
                 })
                 this.setState({ posts: posts })
@@ -59,14 +52,9 @@ export default class HomeScreen extends React.Component {
             .catch(error => console.log(error))
     }
 
-    handleSomething() {
-        this.setPosts();
-
-    }
-
     componentDidMount() {
+        this.setUsers()
         this.setPosts()
-
     }
 
     renderPost = post => {
@@ -121,13 +109,13 @@ export default class HomeScreen extends React.Component {
 
 
                 <View style={styles.filters}>
-                    <TouchableOpacity><Text style={{color: '#4b96eb'}}>Todas</Text></TouchableOpacity> 
+                    <TouchableOpacity><Text style={{ color: '#4b96eb' }}>Todas</Text></TouchableOpacity>
                     <Text>|</Text>
-                    <TouchableOpacity><Text style={{color: '#4b96eb'}}>Sem lactose</Text></TouchableOpacity> 
+                    <TouchableOpacity><Text style={{ color: '#4b96eb' }}>Sem lactose</Text></TouchableOpacity>
                     <Text>|</Text>
-                    <TouchableOpacity><Text style={{color: '#4b96eb'}}>Ovolactovegetarianas </Text></TouchableOpacity> 
+                    <TouchableOpacity><Text style={{ color: '#4b96eb' }}>Ovolactovegetarianas </Text></TouchableOpacity>
                     <Text>|</Text>
-                    <TouchableOpacity><Text style={{color: '#4b96eb'}}>Veganas</Text></TouchableOpacity> 
+                    <TouchableOpacity><Text style={{ color: '#4b96eb' }}>Veganas</Text></TouchableOpacity>
                 </View>
 
 
