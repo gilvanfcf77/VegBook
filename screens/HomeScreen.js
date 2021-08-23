@@ -12,7 +12,7 @@ export default class HomeScreen extends React.Component {
         name: ''
     }
 
-    
+
 
     getUserName = (userId) => {
         const names = ['Albert', 'Kayle', 'Jordan', 'Michael', 'Diana']
@@ -35,7 +35,7 @@ export default class HomeScreen extends React.Component {
         //     })
         //     .catch(error => console.log(error))
 
-        var randomName = names[Math.floor(Math.random()*names.length)];
+        var randomName = names[Math.floor(Math.random() * names.length)];
 
         return randomName
 
@@ -61,12 +61,12 @@ export default class HomeScreen extends React.Component {
 
     handleSomething() {
         this.setPosts();
-      
-      }
 
-    componentDidMount(){
+    }
+
+    componentDidMount() {
         this.setPosts()
-        
+
     }
 
     renderPost = post => {
@@ -118,6 +118,18 @@ export default class HomeScreen extends React.Component {
                 <View style={styles.header}>
                     <Text style={styles.headerTitle}>Feed</Text>
                 </View>
+
+
+                <View style={styles.filters}>
+                    <TouchableOpacity><Text style={{color: '#4b96eb'}}>Todas</Text></TouchableOpacity> 
+                    <Text>|</Text>
+                    <TouchableOpacity><Text style={{color: '#4b96eb'}}>Sem lactose</Text></TouchableOpacity> 
+                    <Text>|</Text>
+                    <TouchableOpacity><Text style={{color: '#4b96eb'}}>Ovolactovegetarianas </Text></TouchableOpacity> 
+                    <Text>|</Text>
+                    <TouchableOpacity><Text style={{color: '#4b96eb'}}>Veganas</Text></TouchableOpacity> 
+                </View>
+
 
                 <FlatList
                     style={styles.feed}
@@ -215,6 +227,12 @@ const styles = StyleSheet.create({
         color: '#175d03',
         fontSize: 16
 
+    },
+    filters: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginHorizontal: 10,
+        marginTop: 16
     }
 
 })

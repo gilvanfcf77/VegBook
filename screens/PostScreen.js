@@ -77,7 +77,7 @@ export default class PostScreen extends React.Component {
                         <Icon name='arrow-back-outline' size={24} color='#D8D9DB' ></Icon>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={this.handlePost}>
-                        <Text style={{ fontWeight: '500' }}>Post</Text>
+                        <Text style={{ fontWeight: '500' }}>Publicar</Text>
                     </TouchableOpacity>
 
                 </View>
