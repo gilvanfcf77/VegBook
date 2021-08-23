@@ -9,7 +9,7 @@ export default class HomeScreen extends React.Component {
 
     state = {
         posts: null,
-        usersNames: null,
+        usersNames: []
     }
 
     setUsers = async () => {
@@ -32,24 +32,21 @@ export default class HomeScreen extends React.Component {
         firebase.firestore()
             .collection('posts')
             .orderBy("timestamp", "desc")
-            .get()
-            .then(snapshot => {
+            .onSnapshot(snapshot => {
                 const posts = []
                 snapshot.forEach(doc => {
-
                     let data = doc.data()
                     let allUsers = this.state.usersNames;
-                    for (var i = 0; i < Object.keys(allUsers).length; i++) {
+                    for (var i = 0; i < allUsers.length; i++) {
                         //
                         if (allUsers[i].uid === data.uid) {
                             data['name'] = allUsers[i].name;
                         }
                     }
-                    posts.push(data)
+                    posts.push(data)                   
                 })
                 this.setState({ posts: posts })
             })
-            .catch(error => console.log(error))
     }
 
     componentDidMount() {
@@ -58,6 +55,7 @@ export default class HomeScreen extends React.Component {
     }
 
     renderPost = post => {
+        this.setState()
         return (
             <View style={styles.feedItem}>
                 <Image source={post.avatar} style={styles.avatar} />
@@ -101,6 +99,7 @@ export default class HomeScreen extends React.Component {
     }
 
     render() {
+
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
