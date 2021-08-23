@@ -9,6 +9,7 @@ export default class HomeScreen extends React.Component {
 
     state = {
         posts: null,
+        name: ''
     }
 
     
@@ -27,7 +28,8 @@ export default class HomeScreen extends React.Component {
         //             let data = doc.data()
 
         //             if (data.uid === userId) {
-        //                 return data.name
+        //                 console.log(data.name);
+        //                 this.setState({ name: data.name })
         //             }
         //         })
         //     })
@@ -48,7 +50,8 @@ export default class HomeScreen extends React.Component {
                 const posts = []
                 snapshot.forEach(doc => {
                     let data = doc.data()
-                    data['name'] = this.getUserName()
+                    this.getUserName(doc.uid);
+                    data['name'] = this.getUserName();
                     posts.push(data)
                 })
                 this.setState({ posts: posts })
@@ -56,8 +59,14 @@ export default class HomeScreen extends React.Component {
             .catch(error => console.log(error))
     }
 
+    handleSomething() {
+        this.setPosts();
+      
+      }
+
     componentDidMount(){
         this.setPosts()
+        
     }
 
     renderPost = post => {
@@ -165,7 +174,9 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         padding: 8,
         flexDirection: 'row',
-        marginVertical: 8
+        marginVertical: 8,
+        borderColor: "#175d03",
+        borderWidth: 1
     },
     avatar: {
         width: 36,
@@ -196,7 +207,8 @@ const styles = StyleSheet.create({
         width: undefined,
         height: 150,
         borderRadius: 5,
-        marginVertical: 16,
+        // marginVertical: 16,
+        marginRight: 50
     },
 
     title: {
