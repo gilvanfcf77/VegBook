@@ -20,9 +20,6 @@ export default class PostScreen extends React.Component {
 
         const post = navigation.state.params.post;
 
-        console.log(navigation.state.params.post);
-
-
         return (
             <ScrollView>
 

@@ -8,24 +8,22 @@ import firebase from 'firebase'
 export default class HomeScreen extends React.Component {
 
     state = {
-        posts: null,
-        usersNames: []
+        posts: [],
+        users: []
     }
 
     setUsers = async () => {
 
-        await firebase.firestore()
+        firebase.firestore()
             .collection('users')
-            .get()
-            .then(querySnapshot => {
-                const names = []
-                querySnapshot.forEach(documentSnapshot => {
-                    let data = documentSnapshot.data()
-                    names.push(data)
+            .onSnapshot(snapshot => {
+                const users = []
+                snapshot.forEach(doc => {
+                    let data = doc.data()
+                    users.push(data)
                 })
-                this.setState({ usersNames: names })
+                this.setState({ users: users })
             })
-            .catch(error => console.log(error))
     }
 
     setPosts = async () => {
@@ -36,14 +34,14 @@ export default class HomeScreen extends React.Component {
                 const posts = []
                 snapshot.forEach(doc => {
                     let data = doc.data()
-                    let allUsers = this.state.usersNames;
+                    let allUsers = this.state.users;
                     for (var i = 0; i < allUsers.length; i++) {
                         //
                         if (allUsers[i].uid === data.uid) {
                             data['name'] = allUsers[i].name;
                         }
                     }
-                    posts.push(data)                   
+                    posts.push(data)
                 })
                 this.setState({ posts: posts })
             })
@@ -55,7 +53,6 @@ export default class HomeScreen extends React.Component {
     }
 
     renderPost = post => {
-        this.setState()
         return (
             <View style={styles.feedItem}>
                 <Image source={post.avatar} style={styles.avatar} />
