@@ -82,9 +82,12 @@ export default class HomeScreen extends React.Component {
                     </TouchableOpacity>
 
                     <View style={{ flexDirection: 'row' }}>
+                        <Text style={{color: '#73788B', marginTop: 5}}>12 </Text>
                         <TouchableOpacity>
                             <Icon name='heart' size={24} color='#73788B' style={{ marginRight: 16 }}></Icon>
                         </TouchableOpacity>
+
+                        <Text style={{color: '#73788B', marginTop: 5}}>25 </Text>
                         <TouchableOpacity>
                             <Icon name='chatbubbles' size={24} color='#73788B'></Icon>
                         </TouchableOpacity>
