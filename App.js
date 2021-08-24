@@ -19,11 +19,6 @@ import ProfileScreen from './screens/ProfileScreen';
 import firebase from 'firebase'
 import FirebaseKeys from './config';
 
-import { LogBox } from 'react-native';
-
-LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
-LogBox.ignoreAllLogs();//Ignore all log notifications
-
 // Initialize Firebase
 if (!firebase.apps.length) {
   firebase.initializeApp(FirebaseKeys);

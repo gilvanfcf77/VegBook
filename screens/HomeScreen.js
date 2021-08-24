@@ -45,7 +45,7 @@ export default class HomeScreen extends React.Component {
                 })
                 this.setState({ posts: posts })
             })
-    }
+    }   
 
     componentDidMount() {
         this.setUsers()
@@ -53,6 +53,7 @@ export default class HomeScreen extends React.Component {
     }
 
     renderPost = post => {
+        var color = '#0ff'
         return (
             <View style={styles.feedItem}>
                 <Image source={post.avatar} style={styles.avatar} />
