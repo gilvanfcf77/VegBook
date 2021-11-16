@@ -2,8 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'
 import moment from 'moment';
-const firebase = require('firebase');
-require('firebase/firestore');
+import CommentsList from './CommentsList';
 
 export default class PostScreen extends React.Component {
     state = {
@@ -81,11 +80,7 @@ export default class PostScreen extends React.Component {
                             <Text style={{ textAlign: 'center', color: '#fff' }}>Enviar comentário</Text>
                         </TouchableOpacity>
 
-                        <View style={{ marginTop: 32, backgroundColor: '#f2f2f2' }}>
-                            <Text style={{ marginLeft: 32 }}>Comentários: </Text>
-                            <Text style={{ marginLeft: 32, marginRight: 32, marginTop: 32, fontSize: 11 }}>João diz: orem ipsum dolor sit amet, consectetur adipiscing elit. Duis eros orci, rhoncus eget massa eget, lacinia laoreet lorem. Nunc sed mauris eros. Nunc ut lorem et velit consequat luctus. Phasellus a scelerisque nisl, et lobortis metus. Cras congue lectus massa, non mollis urna dictum eget. Donec tincidunt nibh vitae leo aliquet, non maximus lectus mollis. Mauris consequat, enim at placerat posuere, lectus orci tempor sapien, ut pellentesque ipsum nibh eu quam. </Text>
-                            <Text style={{ marginLeft: 32, marginRight: 32, marginTop: 32, fontSize: 11 }}>Maria diz: orem ipsum dolor sit amet, consectetur adipiscing elit. Duis eros orci, rhoncus eget massa eget, lacinia laoreet lorem. Nunc sed mauris eros. Nunc ut lorem et velit consequat luctus. Phasellus a scelerisque nisl, et lobortis metus. Cras congue lectus massa, non mollis urna dictum eget. Donec tincidunt nibh vitae leo aliquet, non maximus lectus mollis. Mauris consequat, enim at placerat posuere, lectus orci tempor sapien, ut pellentesque ipsum nibh eu quam. </Text>
-                        </View>
+                        <CommentsList comments={post.comments} />
                     </View>
 
                 </SafeAreaView>

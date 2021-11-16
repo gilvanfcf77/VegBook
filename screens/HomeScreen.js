@@ -69,14 +69,6 @@ export default class HomeScreen extends React.Component {
                         </TouchableOpacity>
                     </View>
 
-                    {/* <Text style={styles.post}>
-                        {post.ingredients}
-                    </Text>
-
-                    <Text style={styles.post}>
-                        {post.preparation}
-                    </Text> */}
-
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('PostDetails', { post: post })}>
                         <Image source={{ uri: post.image }} style={styles.postImage} resizeMode='cover'></Image>
                     </TouchableOpacity>
@@ -91,7 +83,6 @@ export default class HomeScreen extends React.Component {
                         <TouchableOpacity>
                             <Icon name='chatbubbles' size={24} color='#73788B'></Icon>
                         </TouchableOpacity>
-                        {/* <Icon name='heart' size={24} color='#73788B' style={{marginRight: 16}}></Icon> */}
                     </View>
 
                 </View>
