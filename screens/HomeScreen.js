@@ -33,6 +33,7 @@ export default class HomeScreen extends React.Component {
             .onSnapshot(snapshot => {
                 const posts = []
                 snapshot.forEach(doc => {
+                    // console.log(doc.data());
                     let data = doc.data()
                     let allUsers = this.state.users;
                     for (var i = 0; i < allUsers.length; i++) {
@@ -52,11 +53,15 @@ export default class HomeScreen extends React.Component {
         this.setPosts()
     }
 
+    handleLike = (post) => {
+        console.log(post);
+    }
+
     renderPost = post => {
-        var color = '#0ff'
+        // var color = '#0ff'
         return (
-            <View style={styles.feedItem}>
-                <Image source={post.avatar} style={styles.avatar} />
+            <View style={styles.feedItem} id={post.index}>
+                {/* <Image source={post.avatar} style={styles.avatar} /> */}
                 <View style={{ flex: 1 }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                         <View>
@@ -64,18 +69,18 @@ export default class HomeScreen extends React.Component {
                             <Text style={styles.name}>por {post.name}</Text>
                             <Text style={styles.timestamp}>{moment(post.timestamp).fromNow()}</Text>
                         </View>
-                        <TouchableOpacity>
+                        {/* <TouchableOpacity>
                             <Icon name='ellipsis-horizontal' size={24} color='#73788B'></Icon>
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                     </View>
 
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('PostDetails', { post: post })}>
                         <Image source={{ uri: post.image }} style={styles.postImage} resizeMode='cover'></Image>
                     </TouchableOpacity>
 
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: 'row', marginLeft: 10 }}>
                         <Text style={{color: '#73788B', marginTop: 5}}>12 </Text>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.handleLike(post)}>
                             <Icon name='heart' size={24} color='#73788B' style={{ marginRight: 16 }}></Icon>
                         </TouchableOpacity>
 
@@ -95,11 +100,12 @@ export default class HomeScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.headerTitle}>Feed</Text>
+                    <Image source={require('../assets/loginLogo.png')} style={styles.headerLogo}/>
+                    {/* <Text style={styles.headerTitle}>Feed</Text> */}
                 </View>
 
 
-                <View style={styles.filters}>
+                {/* <View style={styles.filters}>
                     <TouchableOpacity><Text style={{ color: '#4b96eb' }}>Todas</Text></TouchableOpacity>
                     <Text>|</Text>
                     <TouchableOpacity><Text style={{ color: '#4b96eb' }}>Sem lactose</Text></TouchableOpacity>
@@ -107,7 +113,7 @@ export default class HomeScreen extends React.Component {
                     <TouchableOpacity><Text style={{ color: '#4b96eb' }}>Ovolactovegetarianas </Text></TouchableOpacity>
                     <Text>|</Text>
                     <TouchableOpacity><Text style={{ color: '#4b96eb' }}>Veganas</Text></TouchableOpacity>
-                </View>
+                </View> */}
 
 
                 <FlatList
@@ -130,12 +136,12 @@ const styles = StyleSheet.create({
 
     container: {
         flex: 1,
-        backgroundColor: '#f7fff2'
+        // backgroundColor: '#f7fff2'
 
     },
 
     header: {
-        paddingTop: 64,
+        paddingTop: 32,
         paddingBottom: 16,
         backgroundColor: '#fff',
         alignItems: 'center',
@@ -156,55 +162,58 @@ const styles = StyleSheet.create({
     },
 
     feed: {
-        marginHorizontal: 16,
+        marginHorizontal: 0,
 
     },
 
     feedItem: {
         backgroundColor: '#fff',
-        borderRadius: 5,
-        padding: 8,
+        // borderRadius: 5,
+        paddingTop: 16,
+        paddingBottom: 16,
         flexDirection: 'row',
-        marginVertical: 8,
-        borderColor: "#175d03",
+        marginVertical: 0,
+        borderColor: "#DCDCDC",
         borderWidth: 1
     },
-    avatar: {
-        width: 36,
-        height: 36,
-        borderRadius: 18,
-        marginRight: 16
-    },
-
+    // avatar: {
+    //     width: 36,
+    //     height: 36,
+    //     borderRadius: 18,
+    //     marginRight: 16
+    // },
     name: {
         fontSize: 11,
         fontWeight: '500',
-        color: '#454D65'
+        color: '#454D65',
+        marginLeft: 10
     },
 
     timestamp: {
         fontSize: 11,
         color: '#C4C6CE',
-        marginTop: 4
+        marginTop: 4,
+        marginLeft: 10
     },
 
     post: {
-        marginTop: 16,
+        marginTop: 0,
         fontSize: 14,
         color: '#838899'
     },
 
     postImage: {
-        width: undefined,
-        height: 150,
+        width: '100%',
+        height: 300,
         borderRadius: 5,
-        // marginVertical: 16,
-        marginRight: 50
+        marginVertical: 16,
+        // marginRight: 50,
     },
 
     title: {
         color: '#175d03',
-        fontSize: 16
+        fontSize: 16,
+        marginLeft: 10
 
     },
     filters: {
@@ -212,6 +221,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         marginHorizontal: 10,
         marginTop: 16
+    },
+    headerLogo:{
+        width: 150,
+        height: 40
     }
 
 })

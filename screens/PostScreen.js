@@ -76,9 +76,9 @@ export default class PostScreen extends React.Component {
                     <TouchableOpacity onPress={() => { this.props.navigation.navigate('Home') }}>
                         <Icon name='arrow-back-outline' size={24} color='#D8D9DB' ></Icon>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={this.handlePost}>
+                    {/* <TouchableOpacity onPress={this.handlePost}>
                         <Text style={{ fontWeight: '500' }}>Publicar</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
 
                 </View>
 
@@ -86,6 +86,8 @@ export default class PostScreen extends React.Component {
                     {/* <Image source={require('../assets/tempAvatar.png')} style={styles.avatar}></Image> */}
 
                     <TextInput
+                        paddingLeft={16}
+                        backgroundColor='#fff'
                         autoFocus={true}
                         placeholder='Título da receita'
                         onChangeText={title => this.setState({ title })}
@@ -94,9 +96,12 @@ export default class PostScreen extends React.Component {
                     >
                     </TextInput>
 
-                    
+
 
                     <TextInput
+                        paddingLeft={16}
+                        marginTop={16}
+                        backgroundColor='#fff'
                         multiline={true}
                         numberOfLines={10}
                         placeholder='Lista de ingredientes'
@@ -106,6 +111,9 @@ export default class PostScreen extends React.Component {
                     </TextInput>
 
                     <TextInput
+                        paddingLeft={16}
+                        marginTop={16}
+                        backgroundColor='#fff'
                         multiline={true}
                         numberOfLines={10}
                         placeholder='Descreva o modo de preparo'
@@ -114,14 +122,20 @@ export default class PostScreen extends React.Component {
                     >
                     </TextInput>
 
-                </View>
-
-                <TouchableOpacity style={styles.photo} onPress={this.pickImage}>
-                    <Icon name='camera-outline' size={32} color='#D8D9DB'></Icon>
-                </TouchableOpacity>
-
-                <View styles={{ marginHorizontal: 32, marginTop: 32, height: 150, alignItems: 'center', justifyContent: 'center' }}>
-                    <Image source={{ uri: this.state.image }} style={{ width: '50%', height: '50%'}}></Image>
+                    <View style={{ flexDirection: 'row', paddingTop: 16 }}>
+                        <TouchableOpacity style={styles.button} onPress={this.pickImage}>
+                            {/* <Icon name='camera-outline' size={32} color='#D8D9DB'></Icon> */}
+                            <Text style={{ color: '#fff' }}>Selecionar imagem</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={this.handlePost}>
+                            {/* <Icon name='camera-outline' size={32} color='#D8D9DB'></Icon> */}
+                            <Text style={{ color: '#fff' }}>Enviar</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        <Image source={{ uri: this.state.image }} style={{ width: '100%', height: 300, marginTop: 16 }}></Image>
+                        <Text>{this.state.image}</Text>
+                    </View>
                 </View>
             </SafeAreaView>
         )
@@ -132,6 +146,7 @@ export default class PostScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#F8F8F8'
     },
 
     header: {
@@ -157,12 +172,17 @@ const styles = StyleSheet.create({
         marginRight: 16
     },
 
+    button: {
+        alignItems: 'center',
+        marginRight: 8,
+        backgroundColor: "#175d03",
+        borderRadius: 0,
+        width: '49%'
+    },
+
     photo: {
         alignItems: 'center',
-        marginHorizontal: 32,
-        backgroundColor: "#175d03",
-        borderRadius: 3
-
+        justifyContent: 'center'
     }
 
 })

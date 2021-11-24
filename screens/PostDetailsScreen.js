@@ -93,7 +93,7 @@ export default class PostScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f7fff2'
+        backgroundColor: '#F8F8F8'
 
     },
 
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
 
     postImage: {
         width: '100%',
-        height: 200
+        height: 300
     },
 
     title: {

@@ -27,6 +27,7 @@ class Fire {
                 })
 
                 .then(ref => {
+                    // ref.update({ 'id': ref.id })
                     res(ref)
                 })
                 .catch(error => {
@@ -34,6 +35,26 @@ class Fire {
                 })
         })
     }
+
+
+    // addLike = async ({ post }) => {
+
+    //     return new Promise((res, rej) => {
+    //         this.firestore.collection('likes')
+    //             .add({
+    //                 uid: this.uid,
+    //                 post: post.id
+
+    //             })
+
+    //             .then(ref => {
+    //                 res(ref)
+    //             })
+    //             .catch(error => {
+    //                 rej(error)
+    //             })
+    //     })
+    // }
 
     uploadPhotoAsync = async uri => {
         const path = `photos/${this.uid}/${Date.now()}.jpg`
@@ -49,7 +70,6 @@ class Fire {
 
             upload.on(
                 'state_changed',
-                snapshot => { },
                 err => {
                     rej(err)
                 },
